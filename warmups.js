@@ -24,19 +24,15 @@ function secondSmallest (arr) {
 
 
 function squareRoot (n) {
-  comparisons = 0
   var mid, l = 1, r = n;
   while ((r - l) > 0.0000001) {
     comparisons += 1;
     mid = (l + r)/2
-    if (Math.pow(mid, 2) < n) {
+    if (Math.pow(mid, 2) < n) {v
       l = mid;
     } else {
       r = mid;
     }
   }
-  console.log(comparisons)
   return (l + r)/2;
 }
-
-console.log(squareRoot(1000000000000000000))

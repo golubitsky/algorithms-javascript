@@ -36,3 +36,11 @@ function squareRoot (n) {
   }
   return (l + r)/2;
 }
+
+function longestCommonSubstring (str, str2) {
+  letters = {}
+  for (var i = 0; i < str2.length; i++) {
+    var char = str2.charAt(i)
+    letters[char] = letters[char] ? letters[char] += 1 : 1
+  }
+}

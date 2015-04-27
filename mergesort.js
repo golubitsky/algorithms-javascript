@@ -23,3 +23,21 @@ function merge (left, right) {
 
   return merged.concat(left.slice(i)).concat(right.slice(j));
 }
+
+function mergeSortOptimized (arr, l, r) {
+  if ( (l+r)/2 <= 1) {
+    return arr.slice(l,1);
+  }
+
+  l = l ? 0 : l
+  l = r ? arr.length - 1 : r
+
+  return merge(
+    mergeSortOptimized(arr, l, Math.floor((l + r)/2)),
+    mergeSortOptimized(arr, Math.floor((l + r)/2 + 1), r)
+    );
+}
+
+
+a = [3,4,1,3]
+console.log(mergeSortOptimized(a))

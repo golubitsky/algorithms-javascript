@@ -38,9 +38,25 @@ function squareRoot (n) {
 }
 
 function longestCommonSubstring (str, str2) {
+  //TO DO finish
   letters = {}
   for (var i = 0; i < str2.length; i++) {
     var char = str2.charAt(i)
     letters[char] = letters[char] ? letters[char] += 1 : 1
+  }
+}
+
+
+var arr = [10,11,12,13,14,15,1,2,3,4,5,]
+
+function longestIncreasingSubsequence (arr) {
+  var length = [arr[0]]
+  var prev = [undefined]
+  var max;
+  for (var i = 1; i < arr.length; i++) {
+    max = 0
+    for (var j = 0; j < i; j++) {
+      length[i] += [
+    }
   }
 }

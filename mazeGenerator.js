@@ -1,6 +1,6 @@
 function Cell () {
   //up right down left
-  this.children = new Array(4)
+  this.adjacents = new Array(4)
   this.inPath = false;
   this.nextX;
   this.nextY;
@@ -11,20 +11,20 @@ function Cell () {
 Cell.prototype._printTopLine = function () {
   var str;
   var char = " "
-  if (this.inPath) {
-    char = "O"
+  if (this.start) {
+    char = "S"
   } else if (this.end) {
     char = "F"
-  } else if (this.start) {
-    char = "S"
+  } else if (this.inPath) {
+    char = "O"
   }
 
-  str = this.children[1] ? char + " " : char + "X"
+  str = this.adjacents[1] ? char + " " : char + "X"
   return str;
 }
 
 Cell.prototype._printBottomLine = function () {
-  return this.children[2] ? " X" : "XX"
+  return this.adjacents[2] ? " X" : "XX"
 }
 
 function Maze (yMax, xMax) {
@@ -66,11 +66,11 @@ Maze.prototype._randomize = function () {
 
       //open opposite node for searching
       if (open === 0) {
-        this.dataStore[y - 1][x].children[open + 2] = [y,x];
-        this.dataStore[y][x].children[open] = [y - 1, x];
+        this.dataStore[y - 1][x].adjacents[open + 2] = [y,x];
+        this.dataStore[y][x].adjacents[open] = [y - 1, x];
       } else {
-        this.dataStore[y][x + 1].children[open + 2] = [y,x];
-        this.dataStore[y][x].children[open] = [y, x + 1];
+        this.dataStore[y][x + 1].adjacents[open + 2] = [y,x];
+        this.dataStore[y][x].adjacents[open] = [y, x + 1];
       }
     }
   }
@@ -94,6 +94,7 @@ Maze.prototype.print = function () {
 }
 
 Maze.prototype.solve = function (y,x) {
+  //TO DO re-initialize start/finish/
   var startX = x || Math.floor(Math.random() * this.x);
   var startY = y || Math.floor(Math.random() * this.y);
 
@@ -101,39 +102,36 @@ Maze.prototype.solve = function (y,x) {
   seen[undefined] = true;
   var coord, cell, x, y;
   var q = [ [startY, startX] ];
-  var curCell;
+
+  this.dataStore[y][x].end = true;
 
   while (q.length) {
     coord = q.shift();
+    seen[coord] = true;
 
     y = coord[0];
     x = coord[1];
     cell = this.dataStore[y][x];
 
-    cell.children.forEach(function (childCoord) {
-      if (!seen[childCoord]) {
-        seen[childCoord] = true;
-        var childY = childCoord[0];
-        var childX = childCoord[1];
-        this.dataStore[childY][childX].nextX = x;
-        this.dataStore[childY][childX].nextY = y;
-        q.push(childCoord)
+
+    cell.adjacents.forEach(function (adj) {
+      if (!seen[adj]) {
+        var adjY = adj[0];
+        var adjX = adj[1];
+        this.dataStore[adjY][adjX].nextX = x;
+        this.dataStore[adjY][adjX].nextY = y;
+        q.push(adj)
       }
     }.bind(this));
   }
-  return [startX, startY]
+  return [startY, startX]
 }
 
-Maze.prototype._tracePathBack = function (coord) {
-  var y = coord[0]
-  var x = coord[1]
-  var original = this.dataStore[y][x];
+Maze.prototype._tracePathBack = function (y,x) {
   var cell = this.dataStore[y][x];
   cell.start = true;
-  while (cell) {
-    if (cell.inPath) {
-      return
-    }
+  while (cell.nextY !== undefined) {
+    console.log(y, x)
     cell.inPath = true;
     y = cell.nextY;
     x = cell.nextX;
@@ -141,13 +139,12 @@ Maze.prototype._tracePathBack = function (coord) {
   }
 }
 
-a = new Maze(10,20)
-startEnd = a.solve(9, 1)
-a._tracePathBack([0,0])
+a = new Maze(4,4)
+a.solve(2,0)
+a._tracePathBack(0,0)
 a.print()
-// a.dataStore.forEach(function (row) {
-//   row.forEach(function (node) {
-//     console.log(node.nextY);
-//     console.log(node.nextX);
-//   });
-// });
+a.dataStore.forEach(function (row) {
+  row.forEach(function (node) {
+    console.log(node.inPath);
+  });
+});

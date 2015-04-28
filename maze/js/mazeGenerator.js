@@ -40,6 +40,10 @@ function Maze (yMax, xMax) {
   this._generateHTML();
 }
 
+Maze.prototype.regenerate = function () {
+  this._randomize()
+  this._reset()
+}
 Maze.prototype._generate = function () {
   var dataStore = [];
   for (var y = 0; y < this.y; y++) {
@@ -116,7 +120,7 @@ Maze.prototype._generateHTML = function () {
   }
 }
 
-//document.querySelector('[x="3"][y="3"]')
+
 
 Maze.prototype.print = function () {
   var cell, topRow, bottomRow;
@@ -136,10 +140,12 @@ Maze.prototype.print = function () {
 }
 
 Maze.prototype.solve = function (y,x) {
+  this.end = [y,x];
   //TO DO re-initialize start/finish/
+  this._reset()
 
-  var seen = {};
-  seen[undefined] = true;
+  var seen = {undefined: true};
+
   var coord, cell, x, y;
   var q = [ [y, x] ];
 
@@ -160,16 +166,30 @@ Maze.prototype.solve = function (y,x) {
       }
     }.bind(this));
   }
-  this._tracePathBack(y,x);
+  this._tracePathBack(0,0);
 }
 
 Maze.prototype._tracePathBack = function (y,x) {
+  this.start = [y,x]
   var cell = this.dataStore[y][x];
+  var el;
   cell.start = true;
   while (cell) {
-    console.log(cell.y, cell.x)
-    cell.inPath = true;
+    el = document.querySelector('[x=\"' + cell.x + '\"][y=\"'+ cell.y +'\"]');
+    el.className += " in-path"
     cell = cell.parent
   }
 }
 
+Maze.prototype._reset = function () {
+
+
+  for (var y = 0; y < this.y; y++) {
+    for (var x = 0; x < this.x; x++) {
+
+      this.dataStore[y][x].parent = undefined;
+    }
+  }
+  var maze = document.getElementById('maze').innerHTML = ''
+  this._generateHTML();
+}

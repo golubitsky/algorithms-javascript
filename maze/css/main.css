@@ -55,14 +55,15 @@ table {
   width: 610px;
   height: 610px;
   border: 5px solid red;
+  background: red;
 }
 
 #maze div {
   width: 60px;
   height: 60px;
   background: black;
-  float: right;
-  border: 5px solid red;
+  float: left;
+  border: 1px solid red;
 }
 
 #maze .left-open {
@@ -70,6 +71,7 @@ table {
 }
 
 #maze .right-open {
+  padding-right: 10px;
   border-right-style: none;
 }
 
@@ -80,3 +82,7 @@ table {
 #maze .down-open {
   border-bottom-style: none;
 }
+
+#maze .in-path {
+  background: green;
+  }

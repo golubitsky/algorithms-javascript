@@ -24,6 +24,20 @@ Graph.prototype.dijkstra = function (startNodeData) {
   }
 }
 
+Graph.prototype.bestRoute = function (end) {
+  var node = this.nodes[end];
+  if (!node.parent) {
+    return 'no route exists'
+  }
+  //run graph.prototype.dijsktra first
+  var route = [];
+  while (node) {
+    route.push(node.data);
+    node = node.parent;
+  }
+  return route.reverse().join('-')
+}
+
 Graph.prototype._minDistanceData = function (q) {
   //use minheap instead to improve efficiency
   var minDistance = Infinity;
@@ -44,7 +58,7 @@ Graph.prototype._extract = function (q, data) {
 }
 
 Graph.prototype._initDijkstra = function (startNodeData) {
-  var q = []
+  var q = [];
   for (data in graph.nodes) {
     if (data === startNodeData) {
       graph.nodes[data].distance = 0;
@@ -58,7 +72,7 @@ Graph.prototype._initDijkstra = function (startNodeData) {
   return q;
 }
 Graph.prototype.density = function () {
-  return this.edgeCount / (this.nodeCount * (this.nodeCount - 1))
+  return this.edgeCount / (this.nodeCount * (this.nodeCount - 1));
 }
 
 Graph.prototype.addNode = function (data) {
@@ -98,8 +112,9 @@ graph.addEdge('b','c', 1)
 graph.addEdge('c','d', 1)
 graph.addEdge('a','d', 3.5)
 graph.addEdge('d','a', 3.5)
-graph.dijkstra('a')
+graph.dijkstra('d')
 
 for (var data in graph.nodes) {
   console.log(data + ': '+ graph.nodes[data].distance)
+  console.log('best route: ' + graph.bestRoute(data))
 }

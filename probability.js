@@ -1,6 +1,7 @@
 console.log('probability');
 
 //find probability of getting (goal int) given (nestings int) nested calls to rand, given (start int)
+//http://community.topcoder.com/stat?c=problem_statement&pm=3510&rd=6527
 function probRand (start, nestings, goal) {
   if (nestings === 1 && start > goal) {
     return 1/start;
@@ -19,7 +20,7 @@ function probRand (start, nestings, goal) {
 }
 
 //find probability a knight exits the chess board given starting position from 1-8(x),1-8(y) and number of jumps(n); once exited the knight cannot return;
-
+//http://community.topcoder.com/stat?c=problem_statement&pm=3509&rd=6528
 function Knight (pos) {
   this.x = pos[0];
   this.y = pos[1];
@@ -54,7 +55,7 @@ Knight.prototype.onProb = function () {
 }
 
 function onBoardProbability (pos, n) {
-  //too slow!
+  //too slow! optimized iterative solution below, using Board
   var currentKnight = new Knight(pos);
   if (n === 1) {
     return currentKnight.onProb();
@@ -67,7 +68,6 @@ function onBoardProbability (pos, n) {
   return prob;
 }
 
-// console.log(onBoardProbability([1,1],8));
 function Board () {
   this.grid = this._constructGrid();
 }

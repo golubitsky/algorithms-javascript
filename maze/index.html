@@ -23,10 +23,14 @@
     <button id="generate">Generate Maze!</button>
     <button id="solve">Solve Maze!</button>
   </div>
-  <script src="js/mazeGenerator.js"></script>
+  <script src="js/cell.js"></script>
+  <script src="js/maze.js"></script>
+  <script src="js/mazeView.js"></script>
   <script src="js/mazeClickLogic.js"></script>
   <script type="text/javascript">
-    var maze = new Maze(10,10);
+    ;(function() {
+      mazeSolver.maze = new mazeSolver.Maze(10,10);
+    }());
   </script>
 </body>
 </html>

@@ -4,8 +4,8 @@
   }
 
   Maze = mazeSolver.Maze = function (yMax, xMax) {
-    this.x = xMax;
-    this.y = yMax;
+    this.x = xMax || Math.floor(Math.random() * 90) + 10;
+    this.y = yMax || Math.floor(Math.random() * 90) + 10;
     this.dataStore = this._generate();
     this._randomize()
     this._generateView();

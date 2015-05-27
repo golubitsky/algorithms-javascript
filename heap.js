@@ -15,6 +15,32 @@ Heap.build = function (arr) {
   return heap;
 }
 
+Heap.prototype.print = function () {
+  console.log(this.dataStore);
+}
+
+Heap.prototype.min = function () {
+  return this.dataStore[0];
+}
+
+Heap.prototype.insert = function (val) {
+  this.dataStore[this.size++] = val;
+  this._heapifyUp();
+}
+
+Heap.prototype.removeMin = function (val) {
+  if (this.size == 0) { return false }
+
+  el = this.dataStore[0];
+  this.size--;
+  if (this.size) {
+    this._heapifyDown();
+  } else {
+    this.dataStore = [];
+  }
+  return el;
+}
+
 Heap.prototype._build = function () {
   for (i = this._startEl(); i >= 0; i--) {
     //TO DO investigate why this is overall slower than building heap by
@@ -72,26 +98,6 @@ Heap.prototype._startEl = function () {
     el += Math.pow(2, i)
     i += 1
   }
-  return el;
-}
-
-Heap.prototype.print = function () {
-  console.log(this.dataStore);
-}
-
-Heap.prototype.min = function () {
-  return this.dataStore[0];
-}
-
-Heap.prototype.insert = function (val) {
-  this.dataStore[this.size++] = val;
-  this._heapifyUp();
-}
-
-Heap.prototype.removeMin = function (val) {
-  el = this.dataStore[0];
-  this.size--;
-  this._heapifyDown();
   return el;
 }
 
@@ -168,21 +174,22 @@ function buildRandArray() {
   }
   return arr;
 }
-var arr = buildRandArray();
-var arr2 = arr.slice();
 
-var t1 = Date.now();
-a = Heap.build(arr);
-console.log(a.count);
-console.log(Date.now() - t1);
+// var arr = buildRandArray();
+// var arr2 = arr.slice();
 
-var t2 = Date.now();
-b = new Heap();
-arr2.forEach(function (el) {
-  b.insert(el)
-});
+// var t1 = Date.now();
+// a = Heap.build(arr);
+// console.log(a.count);
+// console.log(Date.now() - t1);
 
-console.log(b.count)
-console.log(Date.now() - t2);
-console.log(a.dataStore[50] === b.dataStore[50])
+// var t2 = Date.now();
+// b = new Heap();
+// arr2.forEach(function (el) {
+//   b.insert(el)
+// });
+
+// console.log(b.count)
+// console.log(Date.now() - t2);
+// console.log(a.dataStore[50] === b.dataStore[50])
 

@@ -138,7 +138,7 @@
       //no way to arrive at target using any combination of integers in arr
       return false;
     }
-    var sumRange = Math.abs(posSum - negSum);
+
     var elCount = subsummer._countElements(arr);
     // key: el in input arr; val: number of occurences in arr
     var hash = subsummer._createHash(negSum, posSum, setSize);

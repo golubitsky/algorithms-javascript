@@ -45,14 +45,14 @@
     // simple cases do not require generation of subsets
     if (z === 1) {
       if (x.indexOf(y) !== -1) {
-        console.log("Using subsetLength === 1 special case solution.")
+        console.log("Using subsetLength === 1 special case solution.");
         return true;
       } else {
-        console.log("Using subsetLength === 1 special case solution.")
+        console.log("Using subsetLength === 1 special case solution.");
         return false;
       }
     } else if (z === 2) {
-      console.log("Using two-sum special case solution.")
+      console.log("Using two-sum special case solution.");
       // use O(n) solution where n == x.length
       return subsummer.twoSum(x, y);
     }
@@ -60,6 +60,8 @@
     subsummer._calculateUpperAndLowerBounds(x);
 
     if (y < subsummer.lowerBound || y > subsummer.upperBound) {
+      console.log(subsummer.upperBound)
+      console.log("Target out of bounds.")
       //no way to arrive at y using any combination of integers in arr
       return false;
     }
@@ -107,11 +109,7 @@
     return result;
   }
 
-  subsummer.sortNumber = function (a, b) {
-    return a - b;
-  }
-
-  // dynamic solutions
+  // DYNAMIC SOLUTION FOR POSITIVE INTEGERS ONLY
 
   subsummer.zSumDynamicPositiveIntegers = function (arr, target, setSize) {
     console.log("Using dynamic positive-integer solution.")
@@ -195,6 +193,8 @@
     return interimArr;
   }
 
+  // DYNAMIC SOLUTION FOR ALL INTEGERS (POSITIVE AND NEGATIVE)
+
   subsummer.zSumDynamicAllIntegers = function (arr, target, setSize) {
     console.log("Using dynamic all-integer solution.")
     //establish upper/lower bounds of sums we care about in order to arrive at solution
@@ -254,10 +254,6 @@
   }
 
   subsummer._calculateUpperAndLowerBounds = function (arr) {
-    if (subsummer.lowerBound) {
-      return;
-    }
-
     subsummer.lowerBound = 0;
     subsummer.upperBound = 0;
     for (var i = 0; i < arr.length; i++) {
@@ -268,6 +264,7 @@
       }
     }
   }
+
   subsummer._copyHash = function (hash) {
     var newObj = {};
 
@@ -276,6 +273,7 @@
     });
     return newObj;
   }
+
   subsummer._createHash = function (min, max, setSize) {
     //use a hash to allow negative indexing
     var hash = {};
@@ -354,37 +352,58 @@
     return sum;
   }
 
-  // TEST STATEMENTS
+  subsummer.sortNumber = function (a, b) {
+    return a - b;
+  }
 
-  var arr = [3, 5, 1, 2, 23, 29, -44, -2, 7, 7];
+  // // TEST STATEMENTS
 
-  // console.log("The first test in each duplicate-pair refers to subset-generating solution, the second to the dynamic-programming solution.");
+  // var arr = [3, 5, 1, 2, 23, 29, -44, -2, 7, 7];
+
   // console.log("Test array: " + arr);
+  // console.log("")
+  // console.log("The first test in each duplicate-pair refers to subset-generating solution, the second to the dynamic-programming solution.");
+  // console.log("")
   // console.log("29 using 1 element: " + subsummer.zSum(arr, 29, 1));
   // console.log("29 using 1 element: " + subsummer.zSumDynamicAllIntegers(arr, 29, 1));
+  // console.log("")
   // for (var i = 2; i <= 6; i++) {
   //   console.log("29 using " + i + " elements: " + subsummer.zSum(arr, 29, i));
   //   console.log("29 using " + i + " elements: " + subsummer.zSumDynamicAllIntegers(arr, 29, i));
+  //   console.log("")
   // }
   // console.log("Does not use duplicates that don't exist:");
   // console.log("-48 using 3 elements: " + subsummer.zSum(arr, -48, 3));
   // console.log("-48 using 3 elements: " + subsummer.zSumDynamicAllIntegers(arr, -48, 3));
+  // console.log("")
   // console.log("Uses duplicates found in array:");
   // console.log("12 using 3 elements: " + subsummer.zSum(arr, 12, 3));
   // console.log("12 using 3 elements: " + subsummer.zSumDynamicAllIntegers(arr, 12, 3));
+  // console.log("")
   // console.log("Handles negative integers:");
   // for (var i = 2; i <= 3; i++) {
   //   console.log("-46 using " + i + " elements: " + subsummer.zSum(arr, -46, i));
   //   console.log("-46 using " + i + " elements: " + subsummer.zSumDynamicAllIntegers(arr, -46, i));
+  //   console.log("")
   // }
 
-  // arr = [1,3,4,7,45,23,12,10]
-  // console.log(subsummer.zSum(arr, 68,2))
+  // console.log("HANDLES ALL-POSITIVE INTEGERS:");
+  // arr = [3, 4, 45, 12, 10, 77,88,99, 234, 3535]
+  // for (var i = 2; i <= 4; i++) {
+  //   console.log("26 using " + i + " elements: " + subsummer.zSum(arr, 26, i));
+  //   console.log("26 using " + i + " elements: " + subsummer.zSumDynamicPositiveIntegers(arr, 26, i));
+  //   console.log("")
+  // }
+  // console.log("3634 using 2 elements: " + subsummer.zSum(arr, 3634, 2));
+  // console.log("3634 using 2 elements: " + subsummer.zSumDynamicPositiveIntegers(arr, 3634, 2));
+  // console.log("264 using 3 elements: " + subsummer.zSum(arr, 264, 3));
+  // console.log("264 using 3 elements: " + subsummer.zSumDynamicPositiveIntegers(arr, 264, 3));
   // // use random array generator for performance testing
   // arr = [];
   // for (var x = 0; x < 100; x++) {
-  //   arr.push(Math.floor((Math.random() * 100 - 100)))
-  //   }
-  // console.log(subsummer.zSum(arr, 300, 10));
+  //   var val = Math.floor((Math.random() * 10000));
+  //   arr.push(val);
+  // }
+  // console.log(subsummer.zSum(arr, 20000, 50));
 })();
 

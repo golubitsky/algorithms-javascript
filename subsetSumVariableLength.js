@@ -60,7 +60,6 @@
     subsummer._calculateUpperAndLowerBounds(x);
 
     if (y < subsummer.lowerBound || y > subsummer.upperBound) {
-      console.log(subsummer.upperBound)
       console.log("Target out of bounds.")
       //no way to arrive at y using any combination of integers in arr
       return false;

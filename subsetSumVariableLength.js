@@ -372,11 +372,11 @@
   //   console.log("29 using " + i + " elements: " + subsummer.zSumDynamicAllIntegers(arr, 29, i));
   //   console.log("")
   // }
-  // console.log("Does not use duplicates that don't exist:");
+  // console.log("DOES NOT USE DUPLICATES THAT DON'T EXIST:");
   // console.log("-48 using 3 elements: " + subsummer.zSum(arr, -48, 3));
   // console.log("-48 using 3 elements: " + subsummer.zSumDynamicAllIntegers(arr, -48, 3));
   // console.log("")
-  // console.log("Uses duplicates found in array:");
+  // console.log("USES DUPLICATES THAT DO EXIST:");
   // console.log("12 using 3 elements: " + subsummer.zSum(arr, 12, 3));
   // console.log("12 using 3 elements: " + subsummer.zSumDynamicAllIntegers(arr, 12, 3));
   // console.log("")

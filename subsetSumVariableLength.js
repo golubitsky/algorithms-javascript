@@ -398,12 +398,12 @@
   // console.log("3634 using 2 elements: " + subsummer.zSumDynamicPositiveIntegers(arr, 3634, 2));
   // console.log("264 using 3 elements: " + subsummer.zSum(arr, 264, 3));
   // console.log("264 using 3 elements: " + subsummer.zSumDynamicPositiveIntegers(arr, 264, 3));
-  // // use random array generator for performance testing
+  // use random array generator for performance testing
   // arr = [];
-  // for (var x = 0; x < 100; x++) {
-  //   var val = Math.floor((Math.random() * 10000));
+  // for (var x = 0; x < 1000; x++) {
+  //   var val = Math.floor((Math.random() * 20));
   //   arr.push(val);
   // }
-  // console.log(subsummer.zSum(arr, 20000, 50));
+  // console.log(subsummer.zSum(arr, 2000, 50));
 })();
 

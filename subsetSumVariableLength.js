@@ -401,9 +401,14 @@
   // use random array generator for performance testing
   // arr = [];
   // for (var x = 0; x < 1000; x++) {
-  //   var val = Math.floor((Math.random() * 20));
+  //   var val = Math.floor((Math.random() * 20 + 3));
   //   arr.push(val);
   // }
-  // console.log(subsummer.zSum(arr, 2000, 50));
+  // for (var x = 0; x < 50; x++) {
+  //   // it's only possible to for the last console.log statement to return true
+  //   // if the array has 50 2's in it that yield a 100; since all other values are greater than 2
+  //   // arr.push(2);
+  // }
+  // console.log(subsummer.zSum(arr, 100, 50));
 })();
 
